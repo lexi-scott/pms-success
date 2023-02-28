@@ -92,7 +92,7 @@ function CalendarControl() {
         <textarea class="form-control" id="journal" rows="3"></textarea>
       </div>
       <div>
-          
+      <button type="button" class="btn btn-secondary">Secondary</button>  
       </div>`
       },
       plotSelectors: function () {
