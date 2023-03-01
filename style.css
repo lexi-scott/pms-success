@@ -23,20 +23,6 @@ body {
   background-image: url(pxfuel.jpg);
 }
 
-.card {
-    font-family: 'IBM Plex Sans', sans-serif;
-    position: relative;
-    max-width: 400px; /*change as per your design need */
-    min-width: 320px;
-    background: #57886c;
-    color: #e1e6e1;
-    margin: 20px auto;
-    box-sizing: border-box;
-    overflow: hidden;
-    font-weight: normal;
-    border-radius: var(--calendar-border-radius);
-}
-
 .calendar {
     font-family: 'IBM Plex Sans', sans-serif;
     position: relative;
@@ -176,6 +162,25 @@ body {
   pointer-events: none;
 }
 
+.card {
+    font-family: 'IBM Plex Sans', sans-serif;
+    position: relative;
+    max-width: 400px; /*change as per your design need */
+    min-width: 320px;
+    background: #57886c;
+    color: #e1e6e1;
+    margin: 20px auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-weight: normal;
+    border-radius: var(--calendar-border-radius);
+}
+
+.todayDateJournal {
+    text-align: center;
+    width: 100%;
+}
+
 #journal {
-    height: 250px;
+    height: 210px;
 }

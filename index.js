@@ -76,24 +76,10 @@ function CalendarControl() {
             calendarControl.calMonthName[calendar.getMonth()]
           } ${calendar.getFullYear()}`
         );
-        document.querySelector(
-          ".card"
-        ).innerHTML += `<div class="mb-3">
-        <label for="inputDay" class="inputDay">TO ADD Selected Date</label>
-        <select class="form-select" aria-label="Default select example">
-        <option selected>Today's General Mood</option>
-        <option value="1">Happy</option>
-        <option value="2">Content</option>
-        <option value="3">Sad</option>
-      </select>
-      </div>
-      <div class="mb-3">
-        <label for="journal" class="form-label inputDay">Journal</label>
-        <textarea class="form-control" id="journal" rows="3"></textarea>
-      </div>
-      <div>
-      <button type="button" class="btn btn-secondary">Secondary</button>  
-      </div>`
+        var clickedDate = `${e.target.textContent} ${
+          calendarControl.calMonthName[calendar.getMonth()]
+        } ${calendar.getFullYear()}`
+        journalInput(clickedDate);
       },
       plotSelectors: function () {
         document.querySelector(
@@ -241,3 +227,47 @@ function CalendarControl() {
   }
   
   const calendarControl = new CalendarControl();
+  function emptyDiv() {
+    document.querySelector(".card").innerHTML = " "
+  }
+
+  function journalInput(clickedDate) {
+    emptyDiv();
+    document.querySelector(
+      ".card"
+    ).innerHTML += `<div class="mb-3">
+    <label for=todayDateJournal><p class ="todayDateJournal">${clickedDate}</p></label>
+    <br>
+    <select class="form-select" aria-label="Default select example">
+    <option selected>General Mood</option>
+    <option value="1">Happy</option>
+    <option value="2">Content</option>
+    <option value="3">Sad</option>
+    </select>
+  </div>
+  <div>
+  <select class="form-select" aria-label="Default select example">
+  <option selected>No Period</option>
+  <option value="1">Light</option>
+  <option value="2">Medium</option>
+  <option value="3">Heavy</option>
+  </select>
+  </div>
+  <div class="mb-3">
+    <label for="journal" class="form-label inputDay">Journal</label>
+    <textarea class="form-control" id="journal" rows="3"></textarea>
+  </div>
+  <div>
+  <button type="button" class="btn btn-secondary" id="saveBtn" onclick="saveJournal()">Save</button>  <button type="button" class="btn btn-secondary" id="deleteBtn" onclick="deleteJournal()">Delete</button>
+  </div>`
+  }
+
+  function saveJournal() {
+    let btn = document.getElementById('saveBtn');
+    btn.addEventListener('click', console.log("save button success!"));
+  }
+
+  function deleteJournal() {
+    let btn = document.getElementById('deleteBtn');
+    btn.addEventListener('click', console.log("delete button success!"));
+  }
