@@ -20,7 +20,7 @@
 }
 
 body {
-  background-image: url(pxfuel.jpg);
+  background-image: url(./assets/pxfuel.jpg);
 }
 
 .calendar {
@@ -179,6 +179,16 @@ body {
 .todayDateJournal {
     text-align: center;
     width: 100%;
+}
+
+.navbar {
+    background-color: #A8BA9A;
+}
+
+#navBtn {
+    background-color: #E1AD10;
+    margin-left: 40px;
+    width: 120px;
 }
 
 #journal {

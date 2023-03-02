@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS pmsSuccess_db;
+CREATE DATABASE pmsSuccess_db;
