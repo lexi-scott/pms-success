@@ -7,9 +7,7 @@ router.get("/", async (req, res) => {
     res.render("login", {
       loggedIn: req.session.loggedIn,
       userid: req.session.userId,
-      name: req.session.name,
-      ranchNum: req.session.ranchNum,
-      ranch: req.session.ranch,
+      style: "login.css"
     });
   } catch (err) {
     console.log(err);
@@ -30,8 +28,7 @@ router.get("/journal", async (req, res) => {
       loggedIn: req.session.loggedIn,
       userId: req.session.userId,
       name: req.session.name,
-      ranchNum: req.session.ranchNum,
-      ranch: req.session.ranch,
+      style: 'journal.css'
     });
   } catch (err) {
     console.log(err);
