@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
 
 :root {
-    --calendar-bg-color: #996888;
+    --calendar-bg-color: #0cbe96;
     --calendar-font-color: #FFF;
     --weekdays-border-bottom-color: #404040;
     --calendar-date-hover-color: #505050;
-    --calendar-current-date-color: #3f301d;
-    --calendar-today-color: linear-gradient(to bottom, #A8BA9A, #A8ba97);
+    --calendar-current-date-color: #0a0a0c;
+    --calendar-today-color: linear-gradient(to bottom, #9e2b67, #9e2b60);
     --calendar-today-innerborder-color: transparent;
     --calendar-nextprev-bg-color: transparent;
     --next-prev-arrow-color : #FFF;
@@ -20,7 +20,7 @@
 }
 
 body {
-  background-image: url(./assets/pxfuel.jpg);
+  background-image: url(./assets/journalbkg.jpg);
 }
 
 .calendar {
@@ -167,7 +167,7 @@ body {
     position: relative;
     max-width: 400px; /*change as per your design need */
     min-width: 320px;
-    background: #57886c;
+    background: #9e2b67;
     color: #e1e6e1;
     margin: 20px auto;
     box-sizing: border-box;
@@ -176,19 +176,24 @@ body {
     border-radius: var(--calendar-border-radius);
 }
 
+.btn-secondary {
+    background-color: #d0b30e;
+}
+
 .todayDateJournal {
     text-align: center;
     width: 100%;
 }
 
 .navbar {
-    background-color: #A8BA9A;
+    background-color: #d0b30e;
 }
 
 #navBtn {
-    background-color: #E1AD10;
-    margin-left: 40px;
+    background-color: #9e2b67;
+    margin-right: 40px;
     width: 120px;
+    color: white;
 }
 
 #journal {

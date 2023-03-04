@@ -227,6 +227,7 @@ function CalendarControl() {
   }
   
   const calendarControl = new CalendarControl();
+  
   function emptyDiv() {
     document.querySelector(".card").innerHTML = " "
   }

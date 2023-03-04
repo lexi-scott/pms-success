@@ -1,12 +1,11 @@
-const loginFormHandler = async (event) => {
-    event.preventDefault();
+const loginFormHandler = async () => {
   
-    // Collect values from the login form
-    const email = document.querySelector('#email-login').value.trim();
-    const password = document.querySelector('#password-login').value.trim();
+    console.log("hello")
   
-    if (email && password) {
-      // Send a POST request to the API endpoint
+    const userName = document.querySelector('#username').value.trim();
+    const password = document.querySelector('#password').value.trim();
+  
+    if (userName && password) {
       const response = await fetch('/api/users/login', {
         method: 'POST',
         body: JSON.stringify({ email, password }),
@@ -14,10 +13,9 @@ const loginFormHandler = async (event) => {
       });
   
       if (response.ok) {
-        // If successful, redirect the browser to the profile page
-        document.location.replace('/profile');
+        document.location.replace('/journal');
       } else {
-        alert(response.statusText);
+        console.log('Wrong user name or password');
       }
     }
   };
@@ -25,30 +23,53 @@ const loginFormHandler = async (event) => {
   const signupFormHandler = async (event) => {
     event.preventDefault();
   
-    const name = document.querySelector('#name-signup').value.trim();
-    const email = document.querySelector('#email-signup').value.trim();
-    const password = document.querySelector('#password-signup').value.trim();
+    const username = document.querySelector('#username').value.trim();
+    const email = document.querySelector('#email').value.trim();
+    const password = document.querySelector('#password').value.trim();
+
   
-    if (name && email && password) {
+  
+    if (username && email && password) {
       const response = await fetch('/api/users', {
         method: 'POST',
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ username, email, password }), // 
         headers: { 'Content-Type': 'application/json' },
       });
   
       if (response.ok) {
-        document.location.replace('/profile');
+        document.location.replace('/journal');
       } else {
-        alert(response.statusText);
+        alert('Failed to sign up.');
       }
     }
   };
   
-  document
-    .querySelector('.login-form')
-    .addEventListener('submit', loginFormHandler);
+  // document
+  //   .querySelector('#signIn')
+  //   .addEventListener('submit', loginFormHandler);
   
-  document
-    .querySelector('.signup-form')
-    .addEventListener('submit', signupFormHandler);
+  // document
+  //   .querySelector('#signUp')
+  //   .addEventListener('submit', signupFormHandler);
+
+    function emptyDiv() {
+      document.querySelector(".main").innerHTML = " "
+    }
   
+    function signUp() {
+      emptyDiv();
+      document.querySelector(
+        ".main"
+      ).innerHTML += `<p class="sign" align="center">Sign Up</p>
+      <form class="form1" id="signUp">
+        <input class="un " type="text" align="center" placeholder="Username" id="username">
+        <input class="email" type="text" align="center" placeholder="Email@email.com" id="email">
+        <input class="pass" type="password" align="center" placeholder="Password" id="password">
+        <a class="submit" align="center" type="submit">Sign Up</a>`
+    }
+
+    function test() {
+      console.log('button clicked')
+    }
+
+    document.querySelector('.signUp').addEventListener('submit', test)
