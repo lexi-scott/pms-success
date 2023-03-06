@@ -1,12 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
 
+@font-face {
+    font-family: bellBottomLaser;
+    src: url(./assets/bellBottomLaser.ttf)
+}
+
 :root {
-    --calendar-bg-color: #0cbe96;
+    --calendar-bg-color: #944efe;
     --calendar-font-color: #FFF;
     --weekdays-border-bottom-color: #404040;
     --calendar-date-hover-color: #505050;
     --calendar-current-date-color: #0a0a0c;
-    --calendar-today-color: linear-gradient(to bottom, #9e2b67, #9e2b60);
+    --calendar-today-color: linear-gradient(to bottom, #f440f7, #f440f9);
     --calendar-today-innerborder-color: transparent;
     --calendar-nextprev-bg-color: transparent;
     --next-prev-arrow-color : #FFF;
@@ -167,7 +172,7 @@ body {
     position: relative;
     max-width: 400px; /*change as per your design need */
     min-width: 320px;
-    background: #9e2b67;
+    background: #f441f7;
     color: #e1e6e1;
     margin: 20px auto;
     box-sizing: border-box;
@@ -177,7 +182,7 @@ body {
 }
 
 .btn-secondary {
-    background-color: #d0b30e;
+    background-color: #944efe
 }
 
 .todayDateJournal {
@@ -186,14 +191,23 @@ body {
 }
 
 .navbar {
-    background-color: #d0b30e;
+    background-color: #ffbef4;
+    font-family: bellBottomLaser;
+    height: 75px;
+    -webkit-text-stroke: 2px black;
+    font-size: 50px;
+    color: whitesmoke;
 }
 
 #navBtn {
-    background-color: #9e2b67;
+    background-color: #ffd438;
     margin-right: 40px;
     width: 120px;
+    color: black;
+    height: 50px;
+    margin-bottom: 15px;
     color: white;
+    font-size: 25px;
 }
 
 #journal {

@@ -1,13 +1,15 @@
 const router = require("express").Router();
+const { Journal, User } = require ('../models')
+const withAuth = require('../utils/auth');
 
 // GET homepage
 router.get("/", async (req, res) => {
 
   try {
-    res.render("login", {
+    res.render('login', {
       loggedIn: req.session.loggedIn,
       userid: req.session.userId,
-      style: "login.css"
+      style: 'login.css'
     });
   } catch (err) {
     console.log(err);
@@ -16,7 +18,7 @@ router.get("/", async (req, res) => {
 });
 
 
-// GET Dashboard Page
+// GET Journal Page
 router.get("/journal", async (req, res) => {
   // if (!req.session.loggedIn) {
   //   res.redirect('/');
