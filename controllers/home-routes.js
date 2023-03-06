@@ -1,5 +1,6 @@
 const router = require("express").Router();
-const { Journal, User } = require ('../models')
+const Journal = require ('../models/Journal')
+const User = require('../models/User');
 const withAuth = require('../utils/auth');
 
 // GET homepage
