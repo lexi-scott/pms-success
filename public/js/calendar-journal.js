@@ -1,7 +1,4 @@
 //check the console for date click event
-//Fixed day highlight
-//Added previous month and next month view
-
 function CalendarControl() {
     const calendar = new Date();
     const calendarControl = {
@@ -237,25 +234,26 @@ function CalendarControl() {
     document.querySelector(
       ".card"
     ).innerHTML += `<div class="mb-3">
-    <label for=todayDateJournal><p class ="todayDateJournal">${clickedDate}</p></label>
+    <label for=todayDateJournal><h3 class ="todayDateJournal" id="date" style="align-items:center">${clickedDate}</h3></label>
     <br>
     <select class="form-select" aria-label="Default select example">
-    <option selected>General Mood</option>
-    <option value="1">Happy</option>
-    <option value="2">Content</option>
-    <option value="3">Sad</option>
+    <option selected id="mood">General Mood</option>
+    <option value="Happy">Happy</option>
+    <option value="Content">Content</option>
+    <option value="Sad">Sad</option>
     </select>
   </div>
   <div>
   <select class="form-select" aria-label="Default select example">
-  <option selected>No Period</option>
-  <option value="1">Light</option>
-  <option value="2">Medium</option>
-  <option value="3">Heavy</option>
+  <option selected id="period">Cyle Tracker</option>
+  <option value="No Period">No Period</option>
+  <option value="Light">Light</option>
+  <option value="Medium">Medium</option>
+  <option value="Heavy">Heavy</option>
   </select>
   </div>
   <div class="mb-3">
-    <label for="journal" class="form-label inputDay">Journal</label>
+    <label for="journal" class="form-label inputDay"><h4 style="align-items: center">Journal</h4></label>
     <textarea class="form-control" id="journal" rows="3"></textarea>
   </div>
   <div>
@@ -263,9 +261,33 @@ function CalendarControl() {
   </div>`
   }
 
-  function saveJournal() {
+  const saveJournal = async (event) => {
     let btn = document.getElementById('saveBtn');
-    btn.addEventListener('click', console.log("save button success!"));
+
+    const dateID = document.querySelector('#date');
+    const moodID = document.querySelector('#mood');
+    const periodID = document.querySelector('#period');
+    const journal = document.querySelector('#journal').value.trim();
+    
+    let date = dateID.textContent;
+    let mood = moodID.value;
+    let period = periodID.value;
+
+    if (mood && period ) {
+      const response = await fetch('/api/journal', {
+        method: 'POST',
+        body: JSON.stringify({ date, mood, period, journal, user_id }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+      if (response.ok) {
+        document.location.replace('/journal');
+      } else {
+        alert('Failed to save entry.');
+      }
+    }
+
+    btn.addEventListener('click', saveJournal);
+    console.log(date, mood, period, journal)
   }
 
   function deleteJournal() {
