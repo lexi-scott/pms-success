@@ -11,6 +11,10 @@ Journal.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    date: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     mood: {
       type: DataTypes.STRING,
       allowNull: false,

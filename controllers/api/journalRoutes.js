@@ -8,7 +8,8 @@ router.post('/', async (req, res) => {
             date: req.body.date,
             mood: req.body.mood,
             period: req.body.period,
-            notes: req.body.notes
+            journal: req.body.journal,
+            user_id: req.body.userID
         }
         console.log(journalInput)
         const dbJournalData = await Journal.create(journalInput);
