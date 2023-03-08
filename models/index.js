@@ -1,4 +1,3 @@
-
 // import models
 const User = require('./User');
 const Journal = require('./Journal');
@@ -8,5 +7,5 @@ User.hasMany(Journal);
 
 module.exports = {
   User,
-  Journal
+  Journal,
 };
