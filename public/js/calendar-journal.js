@@ -261,7 +261,7 @@ function CalendarControl() {
   </div>`
   }
 
-  const saveJournal = async (event) => {
+  const saveJournal = async () => {
     let btn = document.getElementById('saveBtn');
 
     const dateID = document.querySelector('#date');
@@ -276,7 +276,7 @@ function CalendarControl() {
     if (mood && period ) {
       const response = await fetch('/api/journal', {
         method: 'POST',
-        body: JSON.stringify({ date, mood, period, journal, user_id }),
+        body: JSON.stringify({ date, mood, period, journal }),
         headers: { 'Content-Type': 'application/json' },
       });
       if (response.ok) {
@@ -286,9 +286,10 @@ function CalendarControl() {
       }
     }
 
-    btn.addEventListener('click', saveJournal);
+    btn.addEventListener('click', saveJournal, false);
     console.log(date, mood, period, journal)
   }
+
 
   function deleteJournal() {
     let btn = document.getElementById('deleteBtn');
