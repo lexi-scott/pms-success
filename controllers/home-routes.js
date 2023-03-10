@@ -9,7 +9,6 @@ router.get("/", async (req, res) => {
   try {
     res.render('login', {
       loggedIn: req.session.loggedIn,
-      name: req.session.name,
       style: 'login.css'
     });
   } catch (err) {
@@ -27,8 +26,10 @@ router.get("/journal", async (req, res) => {
   }
   
   try {
+    console.log(29, req.session)
     res.render("journal", {
       loggedIn: req.session.loggedIn,
+      user_id: req.session.user_id,
       name: req.session.name,
       style: 'journal.css'
     });

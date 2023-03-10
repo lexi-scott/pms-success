@@ -234,18 +234,17 @@ function CalendarControl() {
     document.querySelector(
       ".card"
     ).innerHTML += `<div class="mb-3">
-    <label for=todayDateJournal><h3 class ="todayDateJournal" id="date" style="align-items:center">${clickedDate}</h3></label>
-    <br>
-    <select class="form-select" aria-label="Default select example">
-    <option selected id="mood">General Mood</option>
+    <h3 class ="todayDateJournal" id="date" style="align-items:center">${clickedDate}</h3>
+    <h5>General Mood</h5>
+    <select class="form-select" aria-label="Default select example" id="mood">
     <option value="Happy">Happy</option>
     <option value="Content">Content</option>
     <option value="Sad">Sad</option>
     </select>
   </div>
   <div>
-  <select class="form-select" aria-label="Default select example">
-  <option selected id="period">Cyle Tracker</option>
+  <h5>Cycle</h5>
+  <select class="form-select" aria-label="Default select example" id="period">
   <option value="No Period">No Period</option>
   <option value="Light">Light</option>
   <option value="Medium">Medium</option>
@@ -253,7 +252,7 @@ function CalendarControl() {
   </select>
   </div>
   <div class="mb-3">
-    <label for="journal" class="form-label inputDay"><h4 style="align-items: center">Journal</h4></label>
+  <h5>Journal</h5>
     <textarea class="form-control" id="journal" rows="3"></textarea>
   </div>
   <div>
@@ -274,13 +273,14 @@ function CalendarControl() {
     let period = periodID.value;
 
     if (mood && period ) {
-      const response = await fetch('/api/journal', {
+      const response = await fetch('/api/journal/', {
         method: 'POST',
         body: JSON.stringify({ date, mood, period, journal }),
         headers: { 'Content-Type': 'application/json' },
       });
       if (response.ok) {
-        document.location.replace('/journal');
+        // document.location.replace('/journal');
+        alert("Journal Saved!")
       } else {
         alert('Failed to save entry.');
       }
@@ -290,8 +290,22 @@ function CalendarControl() {
     console.log(date, mood, period, journal)
   }
 
+  //savedJournal
+
+  // --> we need to make a request to our DATABASE/SERVER End point (send date  --> to filter results by date)
+  // the response object should be 
+
+  // fetch('/api/journal/:date, { }
+  // if(response.ok) {
+
+    // we should have some data --> single object ()
+  //}
+  // we can dynamically create list items [data.map()]
 
   function deleteJournal() {
     let btn = document.getElementById('deleteBtn');
     btn.addEventListener('click', console.log("delete button success!"));
   }
+
+
+  //on clicked date, search database for if that date exists, if it doesn't exist, pull a clean journal (it's own function), if it does exist, another function to superimpose the data from the database. the db search will pull up all entries and map for the matching date. if results are retuned then dynamically pull journal with data and have "update" and "delete" buttons. if no data is pulled, have a journal dynamic with only a save button. 
