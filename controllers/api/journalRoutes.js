@@ -26,19 +26,22 @@ router.get('/:id', async (req, res) => {
   });
 
 //get journal by date
-// router.get('/date', async (req, res) => {
-//   // find a journal by its `id`
-//   try {
-//     const dbJournalData = await Journal.findAll();
-//     if(!dbJournalData) {
-//       res.status(404).json({ message: 'No Journal was found with that date!'});
-//       return
-//     }
-//     res.status(200).json(dbJournalData)
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+router.get('/user_id/:user_id', async (req, res) => {
+  // find a journal by its `user_id`
+  try {
+    const dbJournalData = await Journal.findAll({ where: {
+      user_id : req.params.user_id,
+    }
+  });
+    if(!dbJournalData) {
+      res.status(404).json({ message: 'No entries was found with that user ID!'});
+      return
+    }
+    res.status(200).json(dbJournalData)
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 router.post('/', async (req, res) => {
     console.log(req.body)
@@ -48,7 +51,7 @@ router.post('/', async (req, res) => {
             mood: req.body.mood,
             period: req.body.period,
             journal: req.body.journal,
-            user_id: req.session.id
+            user_id: req.body.user_id
         }
         const dbJournalData = await Journal.create(journalInput);
         res.status(200).json(dbJournalData)
@@ -65,7 +68,8 @@ router.put('/:id', async (req, res) => {
         date: req.body.date,
         mood: req.body.mood,
         period: req.body.period,
-        journal: req.body.journal
+        journal: req.body.journal,
+        user_id: req.body.user_id
       },
       {
         where: {
