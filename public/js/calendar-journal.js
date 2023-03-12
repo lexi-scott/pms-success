@@ -231,20 +231,15 @@ async function journalInput(clickedDate) {
   //fetch based on userid
   const response = await fetch('/api/journal/user_id/' + user_id)
   const journalDB = await response.json();
-  console.log(journalDB);
   //find clicked date from fetched array
   function isSavedDate(journalDB) {
     return journalDB.date === clickedDate
   }
   let activeJournal = (journalDB.find(isSavedDate));
-  console.log(activeJournal);
+  //calls for journal input based on fetched data
 
-  let fetchMood = activeJournal.mood;
-  let fetchDate = activeJournal.date;
-  let fetchPeriod = activeJournal.period;
-  let fetchJournal = activeJournal.journal;
-
-  if (activeJournal == null) {
+  //dynamically creates input to make a new journal
+  if (!activeJournal) {
     emptyDiv();
     document.querySelector(
       ".card"
@@ -271,10 +266,16 @@ async function journalInput(clickedDate) {
   <textarea class="form-control" id="journal" rows="3"></textarea>
   </div>
   <div>
-  <button type="button" class="btn btn-secondary" id="saveBtn" onclick="saveJournal()">Save</button>  <button type="button" class="btn btn-secondary" id="deleteBtn" onclick="deleteJournal()">Delete</button>
+  <button type="button" class="btn btn-secondary" id="saveBtn" onclick="saveJournal()">Save</button>
   </div>`
   }
-  else {
+  //dynamically creates input to update or delete journal
+  if (activeJournal) {
+    let fetchID = activeJournal.id;
+    let fetchMood = activeJournal.mood;
+    let fetchDate = activeJournal.date;
+    let fetchPeriod = activeJournal.period;
+    let fetchJournal = activeJournal.journal;
     emptyDiv();
     document.querySelector(
       ".card"
@@ -282,7 +283,7 @@ async function journalInput(clickedDate) {
       <h3 class ="todayDateJournal" id="date" style="align-items:center">${fetchDate}</h3>
       <h5>General Mood</h5>
       <select class="form-select" aria-label="Default select example" id="mood">
-      <option value=${fetchMood}><${fetchMood}></option>
+      <option value="${fetchMood}">${fetchMood}</option>
       <option value="Happy">Happy</option>
       <option value="Content">Content</option>
       <option value="Sad">Sad</option>
@@ -291,7 +292,7 @@ async function journalInput(clickedDate) {
       <div>
   <h5>Cycle</h5>
   <select class="form-select" aria-label="Default select example" id="period">
-  <option value=${fetchPeriod}><${fetchPeriod}></option>
+  <option value="${fetchPeriod}">${fetchPeriod}</option>
   <option value="No Period">No Period</option>
   <option value="Light">Light</option>
   <option value="Medium">Medium</option>
@@ -303,12 +304,12 @@ async function journalInput(clickedDate) {
   <textarea class="form-control" id="journal" rows="3">${fetchJournal}</textarea>
   </div>
   <div>
-  <button type="button" class="btn btn-secondary" id="saveBtn" onclick="saveJournal()">Save</button>  <button type="button" class="btn btn-secondary" id="deleteBtn" onclick="deleteJournal()">Delete</button>
+  <button type="button" class="btn btn-secondary" id="updateBtn" onclick="updateJournal()">Update</button>  <button type="button" class="btn btn-secondary" id="deleteBtn" onclick="deleteJournal()">Delete</button><p id="fetchID" style="display:none">${fetchID}</p>
   </div>`
   }
 }
 
-
+//POST journal fetch
 const saveJournal = async () => {
   let btn = document.getElementById('saveBtn');
 
@@ -330,20 +331,101 @@ const saveJournal = async () => {
       headers: { 'Content-Type': 'application/json' },
     });
     if (response.ok) {
-      // document.location.replace('/journal');
       alert("Journal Saved!")
+      // document.location.replace('/journal');
     } else {
       alert('Failed to save entry.');
     }
   }
 
-  btn.addEventListener('click', saveJournal, false);
+  btn.addEventListener('click', saveJournal);
   console.log(date, mood, period, journal)
 }
 
-function deleteJournal() {
+//PUT journal fetch
+const updateJournal = async () => {
+  let btn = document.getElementById('updateBtn');
+
+  const fetchID = document.querySelector('#fetchID');
+  const dateID = document.querySelector('#date');
+  const moodID = document.querySelector('#mood');
+  const periodID = document.querySelector('#period');
+  const journal = document.querySelector('#journal').value.trim();
+  const user = document.querySelector('#user_id');
+
+  let id = fetchID.textContent;
+  let date = dateID.textContent;
+  let mood = moodID.value;
+  let period = periodID.value;
+  let user_id = user.textContent;
+
+  if (mood && period) {
+    const response = await fetch('/api/journal/' + id, {
+      method: 'PUT',
+      body: JSON.stringify({ date, mood, period, journal, user_id }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (response.ok) {
+      alert("Journal Updated!")
+      document.location.replace('/journal');
+    } else {
+      alert('Failed to update entry.');
+    }
+  }
+
+  btn.addEventListener('click', updateJournal);
+}
+
+//DELETE journal fetch
+async function deleteJournal() {
   let btn = document.getElementById('deleteBtn');
-  btn.addEventListener('click', console.log("delete button success!"));
+
+  const fetchID = document.querySelector('#fetchID');
+  const dateID = document.querySelector('#date');
+  let id = fetchID.textContent;
+  let date = dateID.textContent;
+
+  const response = await fetch('/api/journal/' + id, {
+    method: 'DELETE',
+    body: JSON.stringify({ date, mood, period, journal, user_id }),
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (response.ok) {
+    alert("Journal Deleted!")
+    emptyDiv();
+    document.querySelector(
+      ".card"
+    ).innerHTML += `<div class="mb-3">
+      <h3 class ="todayDateJournal" id="date" style="align-items:center">${date}</h3>
+      <h5>General Mood</h5>
+      <select class="form-select" aria-label="Default select example" id="mood">
+      <option value="Happy">Happy</option>
+      <option value="Content">Content</option>
+      <option value="Sad">Sad</option>
+      </select>
+      </div>
+      <div>
+  <h5>Cycle</h5>
+  <select class="form-select" aria-label="Default select example" id="period">
+  <option value="No Period">No Period</option>
+  <option value="Light">Light</option>
+  <option value="Medium">Medium</option>
+  <option value="Heavy">Heavy</option>
+  </select>
+  </div>
+  <div class="mb-3">
+  <h5>Journal</h5>
+  <textarea class="form-control" id="journal" rows="3"></textarea>
+  </div>
+  <div>
+  <button type="button" class="btn btn-secondary" id="saveBtn" onclick="saveJournal()">Save</button>
+  </div>`
+  } else {
+    alert('Failed to delete entry.');
+  }
+  
+
+btn.addEventListener('click', deleteJournal);
 }
 
 function emptyDiv() {
