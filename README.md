@@ -43,4 +43,10 @@
    Graphics: https://dribbble.com/shots/19490840-Trppy-pattern
 
    Font: https://www.fontspace.com/category/psychedelic?p=2 
+
+   ## Link to deployed app and github repo
+
+   deployed - https://pacific-tundra-79298.herokuapp.com/
+
+   github - https://github.com/lexi-scott/pms-success 
    
